@@ -125,7 +125,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
         // Launch remote browser and set it as the current thread
         webDriver.set(new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@localhost:4445"),
+                new URL("http://" + username + ":" + accesskey + "@localhost:4445ß/wd/hub"),
                 capabilities));
 
         // set current sessionId        
