@@ -38,7 +38,7 @@ import com.yourcompany.Pages.*;
  * @author Neil Manvar
  */
 @Listeners({SauceOnDemandTestListener.class})
-public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
 
     // Sauce username
     public String username = System.getenv("SAUCE_USERNAME");
@@ -50,7 +50,6 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
      * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
      * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(username, accesskey);
 
     /**
      * ThreadLocal variable which contains the  {@link WebDriver} instance which is used to perform browser interactions with.
@@ -93,14 +92,6 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         return sessionId.get();
     }
 
-    /**
-     *
-     * @return the {@link SauceOnDemandAuthentication} instance containing the Sauce username/access key
-     */
-    @Override
-    public SauceOnDemandAuthentication getAuthentication() {
-        return authentication;
-    }
 
     /**
      * Constructs a new {@link RemoteWebDriver} instance which is configured to use the capabilities defined by the browser,
@@ -125,7 +116,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
         // Launch remote browser and set it as the current thread
         webDriver.set(new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@localhost:4445/wd/hub"),
+                new URL("http://" + username + ":" + accesskey + "@localhost:4445/wd/hub"),
                 capabilities));
 
         // set current sessionId        
